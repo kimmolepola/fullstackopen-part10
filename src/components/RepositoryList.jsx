@@ -1,9 +1,39 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, View, StyleSheet, Image } from 'react-native';
+import Constants from 'expo-constants';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+  flexContainer: {
+    flexDirection: 'column',
+    display: 'flex',
+    backgroundColor: 'yellow',
+  },
+  flexContainerImageAndInfo: {
+    paddingTop: Constants.statusBarHeight/2,
+    paddingLeft: Constants.statusBarHeight/2,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  flexContainerInfo: {
+    paddingLeft: Constants.statusBarHeight/2,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  flexContainerStats: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  flexItem: {
+    paddingLeft: Constants.statusBarHeight/2,
+    flexGrow: 0,
   },
 });
 
@@ -57,16 +87,42 @@ const repositories = [
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RenderItem = ({item}) => (
-    <Text>
-    Full name: {item.fullName} {"\n"}
-    Descritpion: {item.description} {"\n"}
-    Language: {item.language} {"\n"}
-    Stars: {item.stargazersCount} {"\n"}
-    Forks: {item.forksCount} {"\n"}
-    Reviews: {item.reviewCount} {"\n"}
-    Rating: {item.ratingAverage}
-    </Text>
-    );
+  <View style={styles.flexContainer}>
+    <View style={styles.flexContainerImageAndInfo}>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: item.ownerAvatarUrl,
+        }}
+      />
+      <View style={styles.flexContainerInfo}>
+        <Text style={styles.flexItem}>
+          Full name: {item.fullName}
+        </Text>
+        <Text style={styles.flexItem}>
+          Descritpion: {item.description}
+        </Text>
+        <Text style={styles.flexItem}>
+          Language: {item.language}
+        </Text>
+      </View>
+    </View>
+    <View style={styles.flexContainerStats}>
+      <Text style={styles.flexItem}>
+        Stars: {item.stargazersCount}
+      </Text>
+      <Text style={styles.flexItem}>
+        Forks: {item.forksCount}
+      </Text>
+      <Text style={styles.flexItem}>
+        Reviews: {item.reviewCount}
+      </Text>
+      <Text style={styles.flexItem}>
+        Rating: {item.ratingAverage}
+      </Text>
+    </View>
+  </View>
+);
 
 const RepositoryList = () => {
   return (
