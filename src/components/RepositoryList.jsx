@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, View, StyleSheet, Image } from 'react-native';
 import Constants from 'expo-constants';
 import Text from './Text';
+import RepositoryItem from './RepositoryItem';
 
 const styles = StyleSheet.create({
   separator: {
@@ -10,29 +11,39 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+    borderRadius: 4
   },
   flexContainer: {
     flexDirection: 'column',
     display: 'flex',
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
   },
   flexContainerImageAndInfo: {
-    paddingTop: Constants.statusBarHeight/2,
-    paddingLeft: Constants.statusBarHeight/2,
+    paddingTop: Constants.statusBarHeight/1.8,
+    paddingLeft: Constants.statusBarHeight/1.8,
+    paddingBottom: Constants.statusBarHeight/1.2,
     display: 'flex',
     flexDirection: 'row',
   },
   flexContainerInfo: {
+    flexShrink: 1,
     paddingLeft: Constants.statusBarHeight/2,
+    paddingRight: Constants.statusBarHeight/2,
     display: 'flex',
     flexDirection: 'column',
   },
   flexContainerStats: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingBottom: Constants.statusBarHeight/2,
+  },
+  flexContainerStatsItems: {
+    flexDirection: 'column',
+    display: 'flex',
+    alignItems: 'center'
   },
   flexItem: {
-    paddingLeft: Constants.statusBarHeight/2,
     flexGrow: 0,
   },
 });
@@ -86,7 +97,13 @@ const repositories = [
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RenderItem = ({item}) => (
+const RenderItem = ({item}) => {
+  const asdf = RepositoryItem(item);
+  console.log(asdf);
+  return asdf;
+};
+
+const xRenderItem = ({item}) => (
   <View style={styles.flexContainer}>
     <View style={styles.flexContainerImageAndInfo}>
       <Image
@@ -96,30 +113,50 @@ const RenderItem = ({item}) => (
         }}
       />
       <View style={styles.flexContainerInfo}>
-        <Text style={styles.flexItem}>
-          Full name: {item.fullName}
+        <Text fontWeight="bold">
+          {item.fullName}
         </Text>
-        <Text style={styles.flexItem}>
-          Descritpion: {item.description}
+        <Text color="textSecondary" paddingTopBottom="true">
+          {item.description}
         </Text>
-        <Text style={styles.flexItem}>
-          Language: {item.language}
-        </Text>
+        {<Text padding="true" backgroundColor="true" color="subheading">
+          {item.language}
+        </Text>}
       </View>
     </View>
     <View style={styles.flexContainerStats}>
-      <Text style={styles.flexItem}>
-        Stars: {item.stargazersCount}
-      </Text>
-      <Text style={styles.flexItem}>
-        Forks: {item.forksCount}
-      </Text>
-      <Text style={styles.flexItem}>
-        Reviews: {item.reviewCount}
-      </Text>
-      <Text style={styles.flexItem}>
-        Rating: {item.ratingAverage}
-      </Text>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.stargazersCount}
+        </Text>
+        <Text  color="textSecondary">
+        Stars
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.forksCount}
+        </Text>
+        <Text  color="textSecondary">
+        Forks
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.reviewCount}
+        </Text>
+        <Text  color="textSecondary">
+        Reviews
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.ratingAverage}
+        </Text>
+        <Text  color="textSecondary">
+          Rating
+        </Text>
+      </View>
     </View>
   </View>
 );
