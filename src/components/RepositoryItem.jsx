@@ -4,9 +4,6 @@ import Constants from 'expo-constants';
 import Text from './Text';
 
 const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
   tinyLogo: {
     width: 50,
     height: 50,
@@ -47,74 +44,62 @@ const styles = StyleSheet.create({
   },
 });
 
-const RenderItem = ({item}) => {
-  console.log("item----ewqrqwer-- -- ", item);
-  if (item) {
-    console.log("item----asdfa----- ", item);
-    return (
-      <View style={styles.flexContainer}>
-        <View style={styles.flexContainerImageAndInfo}>
-          <Image
-            style={styles.tinyLogo}
-            source={{
-              uri: item.ownerAvatarUrl,
-            }}
-          />
-          <View style={styles.flexContainerInfo}>
-            <Text fontWeight="bold">
-              {item.fullName}
-            </Text>
-            <Text color="textSecondary" paddingTopBottom="true">
-              {item.description}
-            </Text>
-            {<Text padding="true" backgroundColor="true" color="subheading">
-              {item.language}
-            </Text>}
-          </View>
-        </View>
-        <View style={styles.flexContainerStats}>
-          <View style={styles.flexContainerStatsItems}>
-            <Text fontWeight="bold">
-              {item.stargazersCount}
-            </Text>
-            <Text  color="textSecondary">
+const RenderItem = ({item}) => (
+  <View style={styles.flexContainer}>
+    <View style={styles.flexContainerImageAndInfo}>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: item.ownerAvatarUrl,
+        }}
+      />
+      <View style={styles.flexContainerInfo}>
+        <Text fontWeight="bold">
+          {item.fullName}
+        </Text>
+        <Text color="textSecondary" paddingTopBottom="true">
+          {item.description}
+        </Text>
+        {<Text padding="true" backgroundColor="true" color="subheading">
+          {item.language}
+        </Text>}
+      </View>
+    </View>
+    <View style={styles.flexContainerStats}>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.stargazersCount}
+        </Text>
+        <Text  color="textSecondary">
           Stars
-            </Text>
-          </View>
-          <View style={styles.flexContainerStatsItems}>
-            <Text fontWeight="bold">
-              {item.forksCount}
-            </Text>
-            <Text  color="textSecondary">
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.forksCount}
+        </Text>
+        <Text  color="textSecondary">
           Forks
-            </Text>
-          </View>
-          <View style={styles.flexContainerStatsItems}>
-            <Text fontWeight="bold">
-              {item.reviewCount}
-            </Text>
-            <Text  color="textSecondary">
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.reviewCount}
+        </Text>
+        <Text  color="textSecondary">
           Reviews
-            </Text>
-          </View>
-          <View style={styles.flexContainerStatsItems}>
-            <Text fontWeight="bold">
-              {item.ratingAverage}
-            </Text>
-            <Text  color="textSecondary">
+        </Text>
+      </View>
+      <View style={styles.flexContainerStatsItems}>
+        <Text fontWeight="bold">
+          {item.ratingAverage}
+        </Text>
+        <Text  color="textSecondary">
             Rating
-            </Text>
-          </View>
-        </View>
+        </Text>
       </View>
-    );
-  } else {
-    return (
-      <View>
-
-      </View>
-    );
-  }
-};
+    </View>
+  </View>
+);
 
 export default RenderItem;
