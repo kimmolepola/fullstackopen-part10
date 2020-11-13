@@ -5,7 +5,8 @@ const theme = {
     primary: '#0366d6',
     subheading: 'white',
     barBackground: '#24292e',
-    appBackground: '#e1e4e8'
+    appBackground: '#e1e4e8',
+    greyBorder: 'grey',
   },
   fontSizes: {
     body: 14,
@@ -18,6 +19,15 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+  borderRadius: {
+    normal: 4,
+  },
+  margin: {
+    normal: 12
+  },
+  padding: {
+    normal: 12
+  }
 };
   
 export default theme;

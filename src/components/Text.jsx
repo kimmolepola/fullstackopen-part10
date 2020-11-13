@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight/3,
     paddingBottom: Constants.statusBarHeight/3,
     alignSelf: 'flex-start',
-    borderRadius: 4,
+    borderRadius: theme.borderRadius.normal,
   },
   backgroundColor: {
     backgroundColor: theme.colors.primary,

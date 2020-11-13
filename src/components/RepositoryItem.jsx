@@ -2,12 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import Constants from 'expo-constants';
 import Text from './Text';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
-    borderRadius: 4
+    borderRadius: theme.borderRadius.normal,
   },
   flexContainer: {
     flexDirection: 'column',
@@ -60,9 +61,9 @@ const RenderItem = ({item}) => (
         <Text color="textSecondary" paddingTopBottom="true">
           {item.description}
         </Text>
-        {<Text padding="true" backgroundColor="true" color="subheading">
+        <Text padding="true" backgroundColor="true" color="subheading">
           {item.language}
-        </Text>}
+        </Text>
       </View>
     </View>
     <View style={styles.flexContainerStats}>
