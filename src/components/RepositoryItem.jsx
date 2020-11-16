@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RenderItem = ({item}) => (
+const RenderItem = ({ item }) => (
   <View style={styles.flexContainer}>
     <View style={styles.flexContainerImageAndInfo}>
       <Image
