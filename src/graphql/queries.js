@@ -8,6 +8,7 @@ export const GET_REPOSITORIES = gql`
       {
         node
         {
+          id,
           fullName,
           description,
           language,
