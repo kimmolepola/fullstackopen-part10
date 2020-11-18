@@ -5,6 +5,7 @@ import AppBar from './AppBar';
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
 import SignIn from './SignIn';
+import SignOut from './SignOut';
 
 const Main = () => {
   return (
@@ -16,6 +17,9 @@ const Main = () => {
         </Route>
         <Route path="/SignIn" exact>
           <SignIn />
+        </Route>
+        <Route path="/SignOut" exact>
+          <SignOut />
         </Route>
         <Redirect to="/" />
       </Switch>

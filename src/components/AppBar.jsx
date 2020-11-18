@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView} from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -14,10 +15,11 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { data } = useAuthorizedUser();
   return <View style={styles.flexContainer}>
     <ScrollView horizontal>
       <AppBarTab text={"Repositories"} link={"/"}/>
-      <AppBarTab text={"Sign in"} link={"/SignIn"}/>
+      { data && data.authorizedUser ? <AppBarTab text={"Sign out"} link={"/SignOut"}/> : <AppBarTab text={"Sign in"} link={"/SignIn"}/>}
     </ScrollView>
   </View>;
 };
