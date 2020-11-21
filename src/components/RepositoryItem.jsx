@@ -78,10 +78,10 @@ const RenderItem = ({ item }) => (
       </View>
     </View>
     <View style={styles.flexContainerStats}>
-      <Stat testid="Stars" name="Stars" value={item.stargazersCount} />
-      <Stat testid="Forks" name="Forks" value={item.forksCount} />
-      <Stat testid="Reviews" name="Reviews" value={item.reviewCount} />
-      <Stat testid="Rating" name="Rating" value={item.ratingAverage} />
+      <Stat testid="stars" name="Stars" value={item.stargazersCount} />
+      <Stat testid="forks" name="Forks" value={item.forksCount} />
+      <Stat testid="reviews" name="Reviews" value={item.reviewCount} />
+      <Stat testid="rating" name="Rating" value={item.ratingAverage} />
     </View>
   </View>
 );

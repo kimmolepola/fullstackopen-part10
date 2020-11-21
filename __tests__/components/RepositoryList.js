@@ -48,11 +48,52 @@ describe('RepositoryList', () => {
         ],
       };
         // Add your test code here
-      const { debug, getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />);
-      //debug();
-      //console.log("all-----------", getAllByTestId("repositoryItem")[0].children[0].children[0]);
-      expect(getAllByTestId("fullName")[0]).toHaveTextContent("jaredpalmer/formik");
-      //      expect(getAllByTestId("repositoryItem")[1]).toHaveTextContent("jaredpalmer/formik");
+      const { debug, getAllByTestId, getAllByText } = render(<RepositoryListContainer repositories={repositories} />);
+
+      debug();
+
+      const testIds = ["fullName", "description", "language", "stars", "forks", "rating", "reviews"];
+      for (const testId of testIds){ // test that all the nodes are rendered
+        expect(getAllByTestId(testId)).toHaveLength(repositories.edges.length);
+      }
+
+      const fullNames = [];
+      const descriptions = [];
+      const languages = [];
+      const forksCounts = [];
+      const stargazersCounts = [];
+      const ratingAverages = [];
+      const reviewCounts = [];
+
+      for (let i = 0; i++;i<repositories.length){
+        fullNames.push(repositories.edges[i].node.fullName);
+        descriptions.push(repositories.edges[i].node.description);
+        languages.push(repositories.edges[i].node.language);
+        forksCounts.push(repositories.edges[i].node.forksCount);
+        stargazersCounts.push(repositories.edges[i].node.stargazersCount);
+        ratingAverages.push(repositories.edges[i].node.ratingAverage);
+        reviewCounts.push(repositories.edges[i].node.reviewCount);
+      }
+
+      for (let i = 0; i++;i<repositories.length){ // test that a node has a possibly correct content
+        expect(getAllByTestId("fullName")[i]).toHaveTextContent(fullNames.join('|'));
+        expect(getAllByTestId("description")[i]).toHaveTextContent(descriptions.join('|'));
+        expect(getAllByTestId("language")[i]).toHaveTextContent(languages.join('|'));
+        expect(getAllByTestId("forks")[i]).toHaveTextContent(forksCounts.join('|'));
+        expect(getAllByTestId("stars")[i]).toHaveTextContent(stargazersCounts.join('|'));
+        expect(getAllByTestId("rating")[i]).toHaveTextContent(ratingAverages.join('|'));
+        expect(getAllByTestId("reviews")[i]).toHaveTextContent(reviewCounts.join('|'));
+      }
+
+      for (let i = 0; i++;i<repositories.length){ // test that the repository contents are found somewhere in the render
+        expect(getAllByText(fullNames[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(descriptions[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(languages[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(forksCounts[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(stargazersCounts[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(ratingAverages[i]).length).toBeGreaterThan(0);
+        expect(getAllByText(reviewCounts[i]).length).toBeGreaterThan(0);
+      }
     });
   });
 });
