@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import AuthStorageContext from '../contexts/AuthStorageContext';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient } from '@apollo/react-hooks';
 
 const useSignOut = () => {
   const authStorage = useContext(AuthStorageContext);

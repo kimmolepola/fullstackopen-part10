@@ -45,8 +45,19 @@ const styles = StyleSheet.create({
   },
 });
 
+const Stat = ({ testid, name, value }) => (
+  <View style={styles.flexContainerStatsItems}>
+    <Text testID={testid} fontWeight="bold">
+      {value}
+    </Text>
+    <Text color="textSecondary">
+      {name}
+    </Text>
+  </View>
+);
+
 const RenderItem = ({ item }) => (
-  <View style={styles.flexContainer}>
+  <View testID="repositoryItem" style={styles.flexContainer}>
     <View style={styles.flexContainerImageAndInfo}>
       <Image
         style={styles.tinyLogo}
@@ -55,50 +66,22 @@ const RenderItem = ({ item }) => (
         }}
       />
       <View style={styles.flexContainerInfo}>
-        <Text fontWeight="bold">
+        <Text testID="fullName" fontWeight="bold">
           {item.fullName}
         </Text>
-        <Text color="textSecondary" paddingTopBottom="true">
+        <Text testID="description" color="textSecondary" paddingTopBottom="true">
           {item.description}
         </Text>
-        <Text padding="true" backgroundColor="true" color="subheading">
+        <Text testID="language" padding="true" backgroundColor="true" color="subheading">
           {item.language}
         </Text>
       </View>
     </View>
     <View style={styles.flexContainerStats}>
-      <View style={styles.flexContainerStatsItems}>
-        <Text fontWeight="bold">
-          {item.stargazersCount}
-        </Text>
-        <Text  color="textSecondary">
-          Stars
-        </Text>
-      </View>
-      <View style={styles.flexContainerStatsItems}>
-        <Text fontWeight="bold">
-          {item.forksCount}
-        </Text>
-        <Text  color="textSecondary">
-          Forks
-        </Text>
-      </View>
-      <View style={styles.flexContainerStatsItems}>
-        <Text fontWeight="bold">
-          {item.reviewCount}
-        </Text>
-        <Text  color="textSecondary">
-          Reviews
-        </Text>
-      </View>
-      <View style={styles.flexContainerStatsItems}>
-        <Text fontWeight="bold">
-          {item.ratingAverage}
-        </Text>
-        <Text  color="textSecondary">
-            Rating
-        </Text>
-      </View>
+      <Stat testid="Stars" name="Stars" value={item.stargazersCount} />
+      <Stat testid="Forks" name="Forks" value={item.forksCount} />
+      <Stat testid="Reviews" name="Reviews" value={item.reviewCount} />
+      <Stat testid="Rating" name="Rating" value={item.ratingAverage} />
     </View>
   </View>
 );
