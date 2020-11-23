@@ -48,9 +48,7 @@ describe('RepositoryList', () => {
         ],
       };
         // Add your test code here
-      const { debug, getAllByTestId, getAllByText } = render(<RepositoryListContainer repositories={repositories} />);
-
-      debug();
+      const { getAllByTestId, getAllByText } = render(<RepositoryListContainer repositories={repositories} />);
 
       const testIds = ["fullName", "description", "language", "stars", "forks", "rating", "reviews"];
       for (const testId of testIds){ // test that all the nodes are rendered

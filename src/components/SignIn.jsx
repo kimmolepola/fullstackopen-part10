@@ -24,15 +24,27 @@ const initialValues = {
 
 const SignInForm = ({ onSubmit }) => (
   <View style={styles.flexContainer}>
-    <FormikTextInput name="username" placeholder="Username"/>
+    <FormikTextInput testID="usernameField" name="username" placeholder="Username"/>
     <View style={{ margin: theme.margin.half }}/>
-    <FormikTextInput name="password" placeholder="Password" secureTextEntry/>
+    <FormikTextInput testID="passwordField" name="password" placeholder="Password" secureTextEntry/>
     <View style={{ margin: theme.margin.half }}/>
-    <TouchableOpacity style={styles.button} onPress={onSubmit}>
+    <TouchableOpacity testID="submitButton" style={styles.button} onPress={onSubmit}>
       <Text style={styles.buttonText}>Sign in</Text>
     </TouchableOpacity>
   </View>
 );
+
+export const SignInContainer = ({ onSubmit }) => {
+  return (
+    <Formik 
+      initialValues={initialValues} 
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
+    </Formik>
+  );
+};
 
 const SignIn = () => {
   const history = useHistory();
@@ -52,6 +64,8 @@ const SignIn = () => {
     }
   };
 
+  return <SignInContainer onSubmit={onSubmit} />;
+  /*
   return (
     <Formik 
       initialValues={initialValues} 
@@ -61,6 +75,7 @@ const SignIn = () => {
       {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
     </Formik>
   );
+  */
 };
 
 const styles = StyleSheet.create({
