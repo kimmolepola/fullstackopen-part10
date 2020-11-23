@@ -6,6 +6,7 @@ import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
+import Repository from './Repository';
 
 const Main = () => {
   return (
@@ -13,13 +14,16 @@ const Main = () => {
       <AppBar/>
       <Switch>
         <Route path="/" exact>
-          <RepositoryList/>
+          <RepositoryList />
         </Route>
         <Route path="/SignIn" exact>
-          <SignIn />
+          <SignIn/>
         </Route>
         <Route path="/SignOut" exact>
           <SignOut />
+        </Route>
+        <Route path="/Repository/:id">
+          <Repository />
         </Route>
         <Redirect to="/" />
       </Switch>

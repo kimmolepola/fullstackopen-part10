@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import Constants from 'expo-constants';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
+import { useHistory, withRouter } from 'react-router-native';
+import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
   tinyLogo: {
@@ -16,16 +17,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   flexContainerImageAndInfo: {
-    paddingTop: Constants.statusBarHeight/1.8,
-    paddingLeft: Constants.statusBarHeight/1.8,
-    paddingBottom: Constants.statusBarHeight/1.2,
+    margin: theme.margin.normal,
     display: 'flex',
     flexDirection: 'row',
   },
   flexContainerInfo: {
     flexShrink: 1,
-    paddingLeft: Constants.statusBarHeight/2,
-    paddingRight: Constants.statusBarHeight/2,
+    marginLeft: theme.margin.normal,
+    marginRight: theme.margin.normal,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingBottom: Constants.statusBarHeight/2,
   },
   flexContainerStatsItems: {
     flexDirection: 'column',
@@ -43,6 +41,21 @@ const styles = StyleSheet.create({
   flexItem: {
     flexGrow: 0,
   },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: theme.padding.normal,
+    borderRadius: theme.borderRadius.normal,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: theme.margin.normal
+  },
+  buttonText: {
+    marginTop: 5, 
+    marginBottom: 5, 
+    color: theme.colors.subheading, 
+    fontWeight: 'bold',
+  }
 });
 
 const Stat = ({ testid, name, value }) => (
@@ -56,34 +69,50 @@ const Stat = ({ testid, name, value }) => (
   </View>
 );
 
-const RenderItem = ({ item }) => (
-  <View testID="repositoryItem" style={styles.flexContainer}>
-    <View style={styles.flexContainerImageAndInfo}>
-      <Image
-        style={styles.tinyLogo}
-        source={{
-          uri: item.ownerAvatarUrl,
-        }}
-      />
-      <View style={styles.flexContainerInfo}>
-        <Text testID="fullName" fontWeight="bold">
-          {item.fullName}
-        </Text>
-        <Text testID="description" color="textSecondary" paddingTopBottom="true">
-          {item.description}
-        </Text>
-        <Text testID="language" padding="true" backgroundColor="true" color="subheading">
-          {item.language}
-        </Text>
-      </View>
-    </View>
-    <View style={styles.flexContainerStats}>
-      <Stat testid="stars" name="Stars" value={item.stargazersCount} />
-      <Stat testid="forks" name="Forks" value={item.forksCount} />
-      <Stat testid="reviews" name="Reviews" value={item.reviewCount} />
-      <Stat testid="rating" name="Rating" value={item.ratingAverage} />
-    </View>
-  </View>
-);
+const RenderItem = ({ item, single }) => {
+  const history = useHistory();
+  const onPressRepo = () => {
+    history.push(`/Repository/${item.id}`);
+  };
+  const onPressWeb = () => {
+    Linking.openURL(item.url);
+  };
 
-export default RenderItem;
+  return (
+    <TouchableOpacity onPress={onPressRepo}>
+      <View testID="repositoryItem" style={styles.flexContainer}>
+        <View style={styles.flexContainerImageAndInfo}>
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: item.ownerAvatarUrl,
+            }}
+          />
+          <View style={styles.flexContainerInfo}>
+            <Text testID="fullName" fontWeight="bold">
+              {item.fullName}
+            </Text>
+            <Text testID="description" color="textSecondary" paddingTopBottom="true">
+              {item.description}
+            </Text>
+            <Text testID="language" padding="true" backgroundColor="true" color="subheading">
+              {item.language}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.flexContainerStats}>
+          <Stat testid="stars" name="Stars" value={item.stargazersCount} />
+          <Stat testid="forks" name="Forks" value={item.forksCount} />
+          <Stat testid="reviews" name="Reviews" value={item.reviewCount} />
+          <Stat testid="rating" name="Rating" value={item.ratingAverage} />
+        </View>
+        { single &&
+          <TouchableOpacity style={styles.button} onPress={onPressWeb}>
+            <Text style={styles.buttonText}>Open in GitHub</Text>
+          </TouchableOpacity>
+        }
+      </View>
+    </TouchableOpacity>
+  );};
+
+export default withRouter(RenderItem);

@@ -30,7 +30,7 @@ const theme = {
     normal: 4,
   },
   margin: {
-    normal: 12,
+    normal: 14,
     half: 6,
   },
   padding: {

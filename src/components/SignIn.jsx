@@ -47,9 +47,8 @@ export const SignInContainer = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
-  const history = useHistory();
-
   const [signIn, result] = useSignIn();  
+  const history = useHistory();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
