@@ -46,7 +46,7 @@ export const SignInContainer = ({ onSubmit }) => {
   );
 };
 
-const SignIn = () => {
+const SignIn = ({ setLoggedIn }) => {
   const [signIn, result] = useSignIn();  
   const history = useHistory();
 
@@ -56,6 +56,7 @@ const SignIn = () => {
     try {
       await signIn({ username, password });
       if (result != undefined){
+        setLoggedIn(true);
         history.push("/");
       }
     } catch (e) {
