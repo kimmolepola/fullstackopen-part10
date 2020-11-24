@@ -12,12 +12,13 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.normal,
   },
   flexContainer: {
+    padding: theme.padding.normal,
     flexDirection: 'column',
     display: 'flex',
     backgroundColor: 'white',
   },
   flexContainerImageAndInfo: {
-    margin: theme.margin.normal,
+    marginBottom: theme.margin.normal,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    margin: theme.margin.normal
+    marginTop: theme.margin.normal,
   },
   buttonText: {
     marginTop: 5, 
@@ -92,7 +93,7 @@ const RenderItem = ({ item, single }) => {
             <Text testID="fullName" fontWeight="bold">
               {item.fullName}
             </Text>
-            <Text testID="description" color="textSecondary" paddingTopBottom="true">
+            <Text testID="description" color="textSecondary"paddingTopBottom="true">
               {item.description}
             </Text>
             <Text testID="language" padding="true" backgroundColor="true" color="subheading">

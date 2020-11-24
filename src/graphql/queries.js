@@ -12,7 +12,21 @@ query GetRepository($repositoryId: ID!) {
     reviewCount,
     ratingAverage,
     ownerAvatarUrl,
-    url
+    url,
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Text from './Text';
 import Constants from 'expo-constants';
-import {Link} from 'react-router-native';
+import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
   flexItem: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({text, link}) => {
+const AppBarTab = ({ text, link }) => {
   return (
     <Link to={link} component={TouchableOpacity} activeOpacity={0.8}>
       <View style={styles.flexItem}>

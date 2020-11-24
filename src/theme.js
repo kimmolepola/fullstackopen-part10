@@ -14,6 +14,7 @@ const theme = {
   fontSizes: {
     body: 14,
     subheading: 16,
+    extra: 18
   },
   fonts: {
     main: Platform.select({
@@ -31,11 +32,17 @@ const theme = {
   },
   margin: {
     normal: 14,
-    half: 6,
+    half: 8,
   },
   padding: {
-    normal: 12,
-    half: 6
+    normal: 14,
+    half: 8
+  },
+  separator: {
+    normal: 10
+  },
+  ratingCircle: {
+    size: 50,
   }
 };
   

@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
     color: theme.colors.subheading,
   },
   padding: {
-    paddingLeft: Constants.statusBarHeight/3,
-    paddingRight: Constants.statusBarHeight/3,
-    paddingTop: Constants.statusBarHeight/3,
-    paddingBottom: Constants.statusBarHeight/3,
+    padding: theme.padding.normal,
     alignSelf: 'flex-start',
     borderRadius: theme.borderRadius.normal,
   },
@@ -37,9 +34,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   paddingTopBottom: {
-    paddingTop: Constants.statusBarHeight/2,
-    paddingBottom: Constants.statusBarHeight/2,
+    paddingTop: theme.padding.normal,
+    paddingBottom: theme.padding.normal,
   },
+  fontSizeExtra: {
+    fontSize: theme.fontSizes.extra
+  }
 });
 
 const Text = ({ paddingTopBottom, backgroundColor, padding, color, fontSize, fontWeight, style, ...props }) => {
@@ -53,6 +53,7 @@ const Text = ({ paddingTopBottom, backgroundColor, padding, color, fontSize, fon
     padding === 'true' && styles.padding,
     backgroundColor === 'true' && styles.backgroundColor,
     paddingTopBottom === 'true' && styles.paddingTopBottom,
+    fontSize === 'extra' && styles.fontSizeExtra,
     style,
   ];
 
