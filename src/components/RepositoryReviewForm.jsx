@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 import useCreateReview from '../hooks/useCreateReview';
 import { useHistory } from 'react-router-native';
 import * as yup from 'yup';
-import { FormikTextInput } from './FormikTextInput';
+import FormikTextInput from './FormikTextInput';
 import theme from '../theme';
 import Text from './Text';
 
@@ -39,50 +39,57 @@ const validationSchema = yup.object().shape({
   repositoryName: yup
     .string()
     .required("Repository name is required"),
-  rating: yup
+  ratingString: yup
     .number()
-    .required("Rating is required"),
+    .required("Rating is required")
+    .moreThan(-1, "Rating must be between 0 and 100")
+    .lessThan(101, "Rating must be between 0 and 100")
+    .integer("Rating must be an integer")
+    .typeError("Rating must be a number"),
   text: yup
     .string()
 });
   
 const initialValues = {
-  ownerName: '',
-  repositoryName: '',
-  rating: '',
-  text: '',
+  ownerName: 'minority',
+  repositoryName: 'node-react-mongo-auth',
+  ratingString: '77',
+  text: 'qfqfqewrwwwwwwwwww',
 };
 
 const ReviewForm = ({ onSubmit }) => (
   <View style={styles.flexContainer}>
-    <FormikTextInput name="ownerName" placeholder="Repository owner name"/>
+    <FormikTextInput multiline name="ownerName" placeholder="Repository owner name"/>
     <View style={{ margin: theme.margin.half }}/>
-    <FormikTextInput name="repositoryName" placeholder="Repository name"/>
+    <FormikTextInput multiline name="repositoryName" placeholder="Repository name"/>
     <View style={{ margin: theme.margin.half }}/>
-    <FormikTextInput name="rating" placeholder="Rating between 0 and 100"/>
+    <FormikTextInput name="ratingString" placeholder="Rating between 0 and 100"/>
     <View style={{ margin: theme.margin.half }}/>
-    <FormikTextInput name="text" placeholder="Review"/>
+    <FormikTextInput multiline name="text" placeholder="Review"/>
     <View style={{ margin: theme.margin.half }}/>
-    <TouchableOpacity testID="submitButton" style={styles.button} onPress={onSubmit}>
+    <TouchableOpacity style={styles.button} onPress={onSubmit}>
       <Text style={styles.buttonText}>Create a review</Text>
     </TouchableOpacity>
   </View>
 );
 
 const RepositoryReviewForm = () => {
-  const [review, result] = useCreateReview();  
+  const [review] = useCreateReview();
   const history = useHistory();
   
   const onSubmit = async (values) => {
-    const { ownerName, repositoryName, rating, text } = values;
+    const { ownerName, repositoryName, ratingString, text } = values;
   
+    const rating = parseInt(ratingString);
+
     try {
-      await review({ ownerName, repositoryName, rating, text });
-      if (result != undefined){
-        history.push("/");
+      const data = await review({ ownerName, repositoryName, rating, text });
+      if (data && data.createReview && data.createReview.repositoryId){
+        history.push(`/Repository/${data.createReview.repositoryId}`);
       }
     } catch (e) {
       console.log(e);
+      Alert.alert(JSON.stringify(e));
     }
   };
 

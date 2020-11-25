@@ -18,8 +18,8 @@ const validationSchema = yup.object().shape({
 });
 
 const initialValues = {
-  username: '',
-  password: ''
+  username: 'kalle',
+  password: 'password'
 };
 
 const SignInForm = ({ onSubmit }) => (
@@ -47,15 +47,15 @@ export const SignInContainer = ({ onSubmit }) => {
 };
 
 const SignIn = ({ setLoggedIn }) => {
-  const [signIn, result] = useSignIn();  
+  const [signIn] = useSignIn();  
   const history = useHistory();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
-      await signIn({ username, password });
-      if (result != undefined){
+      const data = await signIn({ username, password });
+      if (data && data.authorize && data.authorize.accessToken){
         setLoggedIn(true);
         history.push("/");
       }

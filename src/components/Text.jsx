@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text as NativeText, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 import theme from '../theme';
 
 const styles = StyleSheet.create({

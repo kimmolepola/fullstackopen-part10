@@ -15,11 +15,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBar = ({ loggedIn }) => {
-  //const { data } = useAuthorizedUser();
-  //console.log("appbarauth---", data);
-
-  return <View style={styles.flexContainer}>
+const AppBar = ({ loggedIn }) => (
+  <View style={styles.flexContainer}>
     <ScrollView horizontal>
       <AppBarTab text={"Repositories"} link={"/"}/>
       { loggedIn
@@ -31,8 +28,8 @@ const AppBar = ({ loggedIn }) => {
         : <AppBarTab text={"Sign in"} link={"/SignIn"}/>
       }
     </ScrollView>
-  </View>;
-};
+  </View>
+);
 
 export default AppBar;
 
