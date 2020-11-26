@@ -14,13 +14,14 @@ import SignUp from './SignUp';
 const Main = () => {
   const { data } = useAuthorizedUser();
   const [loggedIn, setLoggedIn] = useState(data != undefined && data.authorizedUser != null);
+  const [ordering, setOrdering] = useState({ orderBy: "CREATED_AT" });
 
   return (
     <View style={{ flex: 1 }} backgroundColor={theme.colors.appBackground}>
       <AppBar loggedIn={loggedIn}/>
       <Switch>
         <Route path="/" exact>
-          <RepositoryList />
+          <RepositoryList ordering={ordering} setOrdering={setOrdering}/>
         </Route>
         <Route path="/SignIn" exact>
           <SignIn setLoggedIn={setLoggedIn}/>
