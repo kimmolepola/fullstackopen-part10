@@ -15,13 +15,22 @@ const Main = () => {
   const { data } = useAuthorizedUser();
   const [loggedIn, setLoggedIn] = useState(data != undefined && data.authorizedUser != null);
   const [ordering, setOrdering] = useState({ orderBy: "CREATED_AT" });
+  const [filterKeyword, setFilterKeyword] = useState("");
+  const filter = {
+    filterKeyword,
+    setFilterKeyword,
+  };
 
   return (
     <View style={{ flex: 1 }} backgroundColor={theme.colors.appBackground}>
-      <AppBar loggedIn={loggedIn}/>
+      <AppBar loggedIn={loggedIn} />
       <Switch>
         <Route path="/" exact>
-          <RepositoryList ordering={ordering} setOrdering={setOrdering}/>
+          <RepositoryList 
+            ordering={ordering} 
+            setOrdering={setOrdering}
+            filter={filter}
+          />
         </Route>
         <Route path="/SignIn" exact>
           <SignIn setLoggedIn={setLoggedIn}/>
@@ -38,7 +47,7 @@ const Main = () => {
         <Route path="/SignUp">
           <SignUp setLoggedIn={setLoggedIn}/>
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/"/>
       </Switch>
     </View>
   );

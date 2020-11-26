@@ -13,24 +13,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBar = ({ loggedIn }) => (
-  <View style={styles.flexContainer}>
-    <ScrollView horizontal>
-      <AppBarTab text={"Repositories"} link={"/"}/>
-      { loggedIn
-        ? <AppBarTab text={"Create a review"} link={"/Review"}/>
-        : <View/>
-      }
-      { loggedIn
-        ? <AppBarTab text={"Sign out"} link={"/SignOut"}/>
-        : <AppBarTab text={"Sign in"} link={"/SignIn"}/>
-      }
-      { loggedIn
-        ? <View/>
-        : <AppBarTab text={"Sign up"} link={"/SignUp"}/>
-      }
-    </ScrollView>
-  </View>
-);
+const AppBar = ({ loggedIn }) => {
+  
+  return (
+    <View style={styles.flexContainer}>
+      <ScrollView horizontal>
+        <AppBarTab text={"Repositories"} link={"/"}/>
+        { loggedIn
+          ? <AppBarTab text={"Create a review"} link={"/Review"}/>
+          : <View/>
+        }
+        { loggedIn
+          ? <AppBarTab text={"Sign out"} link={"/SignOut"}/>
+          : <AppBarTab text={"Sign in"} link={"/SignIn"}/>
+        }
+        { loggedIn
+          ? <View/>
+          : <AppBarTab text={"Sign up"} link={"/SignUp"}/>
+        }
+      </ScrollView>
+    </View>
+  );};
 
 export default AppBar;

@@ -65,6 +65,7 @@ const ReviewItem = ({ item }) => {
 const ItemSeparator = () => <View style={styles.separator}/>;
 
 const Repository = () => {
+
   const { id } = useParams();
   const { repository } = useRepository(id);
 
