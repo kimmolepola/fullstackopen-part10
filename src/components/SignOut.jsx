@@ -6,13 +6,13 @@ import useAuthorizedUser from '../hooks/useAuthorizedUser';
 
 const SignOut = ({ setLoggedIn }) => {
   const signOut = useSignOut();
-  signOut();
   const history = useHistory();
+  signOut();
   const checkIfLoggedOut = async () => {
     const { data } = await useAuthorizedUser();
     if (data != undefined && data.authorizerUser == null){
       setLoggedIn(false);
-      history.push("/SignIn");
+      history.push("/");
     }
   };
   checkIfLoggedOut();

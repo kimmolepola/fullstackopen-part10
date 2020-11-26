@@ -6,9 +6,18 @@ const useSignOut = () => {
   const authStorage = useContext(AuthStorageContext);
   const apolloClient = useApolloClient();
 
-  const signOut = () => {
-    authStorage.removeAccessToken();
-    apolloClient.resetStore();
+  const signOut = async () => {
+    try {
+      await authStorage.removeAccessToken();
+      try {
+        await apolloClient.resetStore();
+      } catch (error){
+        console.log(error);
+      }
+    } catch (error){
+      console.log(error);
+    }
+    
   };
   return signOut;
 };

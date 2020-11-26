@@ -5,16 +5,25 @@ import { Formik } from 'formik';
 import theme from '../theme';
 import Text from './Text';
 import * as yup from 'yup';
-import useSignIn from '../hooks/useSignIn';
+import useSignUp from '../hooks/useSignUp';
 import { useHistory } from 'react-router-native';
+import useSignIn from '../hooks/useSignIn';
 
 const validationSchema = yup.object().shape({
   username: yup
     .string()
+    .min(1, "Please enter a username of length of 1-30 characters")
+    .max(30, "Please enter a username of length of 1-30 characters")
     .required("Username is required"),
   password: yup
     .string()
+    .min(1, "Please enter a password of length of 5-50 characters")
+    .max(30, "Please enter a password of length of 5-50 characters")
     .required("Password is required"),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], "Please make sure your passwords match")
+    .required("Password confirmation is required"),
 });
 
 const initialValues = {
@@ -22,60 +31,59 @@ const initialValues = {
   password: ''
 };
 
-const SignInForm = ({ onSubmit }) => (
+const SignUpForm = ({ onSubmit }) => (
   <View style={styles.flexContainer}>
-    <FormikTextInput testID="usernameField" name="username" placeholder="Username"/>
+    <FormikTextInput name="username" placeholder="Username"/>
     <View style={{ margin: theme.margin.half }}/>
-    <FormikTextInput testID="passwordField" name="password" placeholder="Password" secureTextEntry/>
+    <FormikTextInput name="password" placeholder="Password" secureTextEntry/>
     <View style={{ margin: theme.margin.half }}/>
-    <TouchableOpacity testID="submitButton" style={styles.button} onPress={onSubmit}>
-      <Text style={styles.buttonText}>Sign in</Text>
+    <FormikTextInput name="passwordConfirmation" placeholder="Password confirmation" secureTextEntry/>
+    <View style={{ margin: theme.margin.half }}/>
+    <TouchableOpacity style={styles.button} onPress={onSubmit}>
+      <Text style={styles.buttonText}>Sign up</Text>
     </TouchableOpacity>
   </View>
 );
 
-export const SignInContainer = ({ onSubmit }) => {
+export const SignUpContainer = ({ onSubmit }) => {
   return (
     <Formik 
       initialValues={initialValues} 
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
+      {({ handleSubmit }) => <SignUpForm onSubmit={handleSubmit}/>}
     </Formik>
   );
 };
 
-const SignIn = ({ setLoggedIn }) => {
-  const [signIn] = useSignIn();  
+const SignUp = ({ setLoggedIn }) => {
   const history = useHistory();
+  const [signUp] = useSignUp();
+  const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
-      const data = await signIn({ username, password });
-      if (data && data.authorize && data.authorize.accessToken){
-        setLoggedIn(true);
-        history.push("/");
+      const data = await signUp({ username, password });
+      if (data){
+        try {
+          const signInData = await signIn({ username, password });
+          if (signInData) {
+            setLoggedIn(true);
+            history.push("/");
+          }
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-  return <SignInContainer onSubmit={onSubmit} />;
-  /*
-  return (
-    <Formik 
-      initialValues={initialValues} 
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
-    </Formik>
-  );
-  */
+  return <SignUpContainer onSubmit={onSubmit} />;
 };
 
 const styles = StyleSheet.create({
@@ -102,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignIn;
+export default SignUp;

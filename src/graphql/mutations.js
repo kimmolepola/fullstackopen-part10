@@ -1,5 +1,13 @@
 import { gql } from 'apollo-boost';
 
+export const CREATE_USER = gql`
+mutation CreateUser($props: CreateUserInput!){
+  createUser(user: $props) {
+    id
+  }
+}
+`;
+
 export const CREATE_REVIEW = gql`
 mutation CreateReview($props: CreateReviewInput!){
   createReview(review: $props) {

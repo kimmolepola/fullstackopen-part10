@@ -9,6 +9,7 @@ import SignOut from './SignOut';
 import Repository from './Repository';
 import RepositoryReviewForm from './RepositoryReviewForm';
 import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import SignUp from './SignUp';
 
 const Main = () => {
   const { data } = useAuthorizedUser();
@@ -32,6 +33,9 @@ const Main = () => {
         </Route>
         <Route path="/Review" exact>
           <RepositoryReviewForm />
+        </Route>
+        <Route path="/SignUp">
+          <SignUp setLoggedIn={setLoggedIn}/>
         </Route>
         <Redirect to="/" />
       </Switch>
