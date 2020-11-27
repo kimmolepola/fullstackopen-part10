@@ -60,4 +60,31 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
+export const GET_REPOSITORIES_PAGINATED = gql`
+  query GetRepositories($first: Int, $after: String, $searchKeyword: String, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+    repositories(first: $first, after: $after, searchKeyword: $searchKeyword, orderBy: $orderBy, orderDirection: $orderDirection) {
+      edges {
+        node {
+          id,
+          fullName,
+          description,
+          language,
+          stargazersCount,
+          forksCount,
+          reviewCount,
+          ratingAverage,
+          ownerAvatarUrl
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        totalCount
+        hasNextPage
+      }
+    }
+  }
+`;
+
 // other queries...

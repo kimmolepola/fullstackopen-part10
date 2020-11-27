@@ -66,6 +66,8 @@ export class RepositoryListContainer extends React.Component {
         renderItem={RepositoryItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={this.props.onEndReach}
+        onEndReachedThreshold={0.5}
         // other props
       />
     );
@@ -75,13 +77,21 @@ export class RepositoryListContainer extends React.Component {
 const RepositoryList = ({ ordering, setOrdering, filter }) => {
 
   const { filterKeyword } = filter;
-  const { repositories } = useRepositories(ordering, filterKeyword);
+  const { repositories, fetchMore } = useRepositories({ first: 4, ordering, filterKeyword });
+
+  console.log("fetf---", fetchMore);
+
+  const onEndReach = () => {
+    console.log('You have reached the end of the list');
+    fetchMore();
+  };
 
   return (<RepositoryListContainer 
     filter={filter} 
     ordering={ordering}
     setOrdering={setOrdering} 
     repositories={repositories}
+    onEndReach={onEndReach}
   />);
 };
 
