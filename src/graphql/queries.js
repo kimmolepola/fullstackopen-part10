@@ -1,5 +1,43 @@
 import { gql } from 'apollo-boost';
 
+export const GET_REPOSITORY_PAGINATED = gql`
+query GetRepository($after: String, $first: Int, $repositoryId: ID!) {
+  repository(id: $repositoryId) {
+    id,
+    fullName,
+    description,
+    language,
+    stargazersCount,
+    forksCount,
+    reviewCount,
+    ratingAverage,
+    ownerAvatarUrl,
+    url,
+    reviews(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        totalCount
+        hasNextPage
+      }
+    }
+  }
+}
+`;
+
 export const GET_REPOSITORY = gql`
 query GetRepository($repositoryId: ID!) {
   repository(id: $repositoryId) {

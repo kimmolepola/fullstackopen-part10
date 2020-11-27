@@ -77,12 +77,9 @@ export class RepositoryListContainer extends React.Component {
 const RepositoryList = ({ ordering, setOrdering, filter }) => {
 
   const { filterKeyword } = filter;
-  const { repositories, fetchMore } = useRepositories({ first: 4, ordering, filterKeyword });
-
-  console.log("fetf---", fetchMore);
+  const { repositories, fetchMore } = useRepositories({ first: 8, ordering, filterKeyword });
 
   const onEndReach = () => {
-    console.log('You have reached the end of the list');
     fetchMore();
   };
 

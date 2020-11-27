@@ -67,9 +67,13 @@ const ItemSeparator = () => <View style={styles.separator}/>;
 const Repository = () => {
 
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const { repository, fetchMore } = useRepository({ id, first: 8 });
 
   const reviews = repository ? repository.reviews.edges.map(x => x.node) : [];
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (repository){
     return (
@@ -81,6 +85,8 @@ const Repository = () => {
         ListHeaderComponentStyle={styles.header}
         ItemSeparatorComponent={ItemSeparator}
         stickyHeaderIndices={[0]}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
