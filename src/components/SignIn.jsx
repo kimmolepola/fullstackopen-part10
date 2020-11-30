@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import FormikTextInput from './FormikTextInput';
 import { Formik } from 'formik';
 import theme from '../theme';
@@ -18,7 +18,7 @@ const validationSchema = yup.object().shape({
 });
 
 const initialValues = {
-  username: 'kalle',
+  username: 'alice',
   password: 'password'
 };
 

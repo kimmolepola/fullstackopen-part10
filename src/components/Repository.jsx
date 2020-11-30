@@ -6,6 +6,7 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import theme from '../theme';
 import ReviewItem from './ReviewItem';
 import ItemSeparator from './ItemSeparator';
+import useDeleteReview from '../hooks/useDeleteReview';
 
 const styles = StyleSheet.create({
   header: {
@@ -13,8 +14,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const Repository = () => {
+const Repository = ({ userData }) => {
 
+  const [deleteReview] = useDeleteReview();
   const { id } = useParams();
   const { repository, fetchMore } = useRepository({ id, first: 8 });
 
@@ -28,7 +30,8 @@ const Repository = () => {
     return (
       <FlatList
         data={reviews}
-        renderItem={ReviewItem}
+        renderItem={(item) => <ReviewItem deleteReview={deleteReview} item={item.item} userData={userData}/>}
+        //renderItem={ReviewItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={() => <RepositoryItem single={true} item={repository}/>}
         ListHeaderComponentStyle={styles.header}

@@ -3,6 +3,7 @@ import { AUTHORIZE } from '../graphql/mutations';
 import { useContext } from 'react';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import { useApolloClient } from '@apollo/react-hooks';
+import { Alert } from 'react-native';
 
 const useSignIn = () => {
   const authStorage = useContext(AuthStorageContext);
@@ -18,6 +19,7 @@ const useSignIn = () => {
       apolloClient.resetStore();
       return data;
     } catch (e){
+      Alert.alert("Error", e.message);
       console.log(e);
     }
   };

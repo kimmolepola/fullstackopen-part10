@@ -10,6 +10,7 @@ export const GET_AUTHORIZED_USER_PAGINATED = gql`
             id
             repository{
               fullName
+              id
             }
             rating
             createdAt

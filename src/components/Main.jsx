@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
@@ -13,7 +13,11 @@ import ReviewList from './ReviewList';
 
 const Main = () => {
   const { data } = useAuthorizedUser();
-  const [loggedIn, setLoggedIn] = useState(data != undefined && data.authorizedUser != null);
+  //const [loggedIn, setLoggedIn] = useState(data != undefined && data.authorizedUser != null);
+  const [loggedIn, setLoggedIn] = useState();
+  useEffect(()=>{
+    setLoggedIn(Boolean(data && data.authorizedUser));
+  },[data]);
   const [ordering, setOrdering] = useState({ orderBy: "CREATED_AT" });
   const [filterKeyword, setFilterKeyword] = useState("");
   const filter = {
@@ -36,7 +40,7 @@ const Main = () => {
           <SignIn setLoggedIn={setLoggedIn}/>
         </Route>
         <Route path="/Repository/:id">
-          <Repository />
+          <Repository userData={data}/>
         </Route>
         <Route path="/Review" exact>
           <RepositoryReviewForm />

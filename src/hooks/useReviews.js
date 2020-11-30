@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/react-hooks';
 const useReviews = ({ first }) => {
   const variables = { includeReviews: true, first };
   const { data, error, loading, fetchMore, ...result } = useQuery(GET_AUTHORIZED_USER_PAGINATED, { variables }, { fetchPolicy: 'cache-and-network' });
-  console.log(data);
   const handleFetchMore = () => {
     const canFetchMore =
         !loading && data && data.authorizedUser && data.authorizedUser.reviews && data.authorizedUser.reviews.pageInfo.hasNextPage;
