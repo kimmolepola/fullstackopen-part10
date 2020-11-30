@@ -1,16 +1,11 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 import theme from '../theme';
 import RNPickerSelect from 'react-native-picker-select';
 import { Searchbar } from 'react-native-paper';
-
-const styles = StyleSheet.create({
-  separator: {
-    height: theme.separator.normal,
-  }
-});
+import ItemSeparator from './ItemSeparator';
 
 const Filter = ({ filter }) => {
   const onChangeSearch = (input) => {
@@ -42,8 +37,6 @@ const Header = ({ ordering, setOrdering, filter }) => (
     <Picker ordering={ordering} setOrdering={setOrdering} />
   </View>
 );
-
-const ItemSeparator = () => <View style={styles.separator}/>;
 
 export class RepositoryListContainer extends React.Component {
 

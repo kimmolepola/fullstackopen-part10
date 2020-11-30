@@ -7,7 +7,7 @@ const useRepository = ({ first, id }) => {
   const { data, error, loading, fetchMore, ...result } = useQuery(GET_REPOSITORY_PAGINATED, { variables }, { fetchPolicy: 'cache-and-network' });
   const handleFetchMore = () => {
     const canFetchMore =
-    !loading && data && data.repository.reviews.pageInfo.hasNextPage;
+    !loading && data && data.repository && data.repository.reviews && data.repository.reviews.pageInfo.hasNextPage;
 
     if (!canFetchMore){
       return;

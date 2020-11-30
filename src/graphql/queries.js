@@ -1,5 +1,33 @@
 import { gql } from 'apollo-boost';
 
+export const GET_AUTHORIZED_USER_PAGINATED = gql`
+  query GetAuthorizedUser($after: String, $first: Int){
+    authorizedUser{
+      id
+      reviews(first: $first, after: $after){
+        edges{
+          node{
+            id
+            repository{
+              fullName
+            }
+            rating
+            createdAt
+            text
+          }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          totalCount
+          hasNextPage
+        }
+      }
+    }
+  }
+`;
+
 export const GET_REPOSITORY_PAGINATED = gql`
 query GetRepository($after: String, $first: Int, $repositoryId: ID!) {
   repository(id: $repositoryId) {
@@ -70,12 +98,24 @@ query GetRepository($repositoryId: ID!) {
 `;
 
 export const GET_AUTHORIZED_USER = gql`
-  query {
-      authorizedUser {
-        id
-        username
+  query GetAuthorizedUser($includeReviews: Boolean = false){
+    authorizedUser{
+      id
+      reviews @include(if: $includeReviews){
+        edges{
+          node{
+            id
+            repository{
+              fullName
+            }
+            rating
+            createdAt
+            text
+          }
+        }
       }
     }
+  }
 `;
 
 export const GET_REPOSITORIES = gql`

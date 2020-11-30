@@ -10,7 +10,7 @@ const useRepositories = ({ first, ordering, filterKeyword }) => {
   const { data, error, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES_PAGINATED, { variables }, { fetchPolicy: 'cache-and-network' });
   const handleFetchMore = () => {
     const canFetchMore =
-    !loading && data && data.repositories.pageInfo.hasNextPage;
+    !loading && data && data.repositories && data.repositories.pageInfo.hasNextPage;
 
     if (!canFetchMore){
       return;
